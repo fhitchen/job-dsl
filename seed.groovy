@@ -19,9 +19,11 @@ services.each {
 
     pipelineJob ("$currentFolder/$branch") {
       description("do not hand edit, built by seed.groovy")
+      // when...
       triggers {
           scm cronSchedule
       }
+      // what...
       scm {
         git {
           remote {
@@ -40,6 +42,7 @@ services.each {
       		          }
     	          }
             }
+            // how
             scriptPath "Jenkinsfile_$branch"
         }
       }
