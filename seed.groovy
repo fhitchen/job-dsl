@@ -81,3 +81,18 @@ services.each {
     }
   }
 }
+
+folder "mein"
+
+job('AOT') {
+    scm {
+        perforceP4('p4_credentials') {
+            workspace {
+                manual('ws_name', '//depot/METRO/AOT/... //ws_name/AOT/...')
+            }
+            configure { node ->
+                node / workspace / spec / clobber('true')
+            }
+        }
+    }
+}
