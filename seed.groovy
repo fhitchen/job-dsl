@@ -85,6 +85,7 @@ services.each {
 folder "mein"
 
 job('AOT') {
+    folder "Xxx"
     scm {
         perforceP4('p4_credentials') {
             workspace {
