@@ -82,14 +82,13 @@ services.each {
   }
 }
 
-folder "mein"
+folder "Metro"
 
-job('AOT') {
-    folder "Xxx"
+job('Metro/AOT') {
     scm {
         perforceP4('p4_credentials') {
             workspace {
-                manual('ws_name', '//METRO/AOT/... //ws_name/AOT/...')
+                manual('ws_name', '//METRO/1910-Release/AOT/... //ws_name/AOT/...')
             }
             configure { node ->
                 node / workspace / spec / clobber('true')
