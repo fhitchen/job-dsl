@@ -3,7 +3,7 @@
 // job-dsl langauge
 String team= 'fhitchen'
 String gitUrl = "https://github.com/$team"
-String cronSchedule = 'H/2 * * * *'
+String cronSchedule = 'H/30 * * * *'
 services = ['hello', 'goodbye']
 branches = ['master', 'qa', 'staging', 'prod']
 
