@@ -130,7 +130,7 @@ folder "Sprint"
               }
    
               // how
-              scriptPath "Jenkinsfile"
+              scriptPath "api/Jenkinsfile"
                   }
       }
 }
