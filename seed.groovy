@@ -96,3 +96,44 @@ job('Metro/AOT') {
         }
     }
 }
+
+folder "Sprint"
+
+    pipelineJob ("Sprint/api") {
+      description("do not hand edit, built by seed.groovy")
+      // when...
+      triggers {
+          scm cronSchedule
+      }
+      // what..
+     scm {
+         perforceP4('p4_credentials') {
+            workspace {
+                manual('ws_name', '//SPRINT/fhitchen-sprint-api-1625/api/... //ws_name/api/...')
+            }
+            configure { node ->
+                node / workspace / spec / clobber('true')
+            }
+        }
+      }
+      definition {
+             cpsScm {
+     scm {
+         perforceP4('p4_credentials') {
+            workspace {
+                manual('ws_name', '//SPRINT/fhitchen-sprint-api-1625/api/... //ws_name/api/...')
+            }
+            configure { node ->
+                node / workspace / spec / clobber('true')
+            }
+        }
+      }
+            }
+            // how
+            scriptPath "Jenkinsfile"
+        }
+      }
+
+
+
+
