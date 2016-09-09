@@ -117,22 +117,23 @@ folder "Sprint"
         }
       }
       definition {
-             cpsScm {
-     scm {
-         perforceP4('p4_credentials') {
-            workspace {
-                manual('ws_name', '//SPRINT/fhitchen-sprint-api-1625/api/... //ws_name/api/...')
-            }
-            configure { node ->
-                node / workspace / spec / clobber('true')
-            }
-        }
+          cpsScm {
+              scm {
+                  perforceP4('p4_credentials') {
+                      workspace {
+                          manual('ws_name', '//SPRINT/fhitchen-sprint-api-1625/api/... //ws_name/api/...')
+                              }
+                      configure { node ->
+                              node / workspace / spec / clobber('true')
+                              }
+                  }
+              }
+   
+              // how
+              scriptPath "Jenkinsfile"
+                  }
       }
-            }
-            // how
-            scriptPath "Jenkinsfile"
-        }
-      }
+}
 
 
 
