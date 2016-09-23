@@ -167,7 +167,7 @@ folder "Sprint"
 	  }
       }	
             // how
-            scriptPath "api-gradle/Jenkinsfile_gradle"
+            scriptPath "api/Jenkinsfile_gradle"
 	  }
   }
 }
