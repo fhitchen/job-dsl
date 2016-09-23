@@ -147,7 +147,7 @@ folder "Sprint"
      scm {
          perforceP4('p4_credentials') {
             workspace {
-                manual('ws_name', '//SPRINT/fhitchen-sprint-api-1625/api/... //ws_name/1/...')
+                stream('ws_name', '//SPRINT/fhitchen-sprint-api-1625/api')
             }
             configure { node ->
                 node / workspace / spec / clobber('true')
@@ -159,7 +159,7 @@ folder "Sprint"
      scm {
          perforceP4('p4_credentials') {
             workspace {
-                manual('ws_name', '//SPRINT/fhitchen-sprint-api-1625/api/... //ws_name/1/...')
+                stream('ws_name', '//SPRINT/fhitchen-sprint-api-1625/ap')
             }
             configure { node ->
                 node / workspace / spec / clobber('true')
