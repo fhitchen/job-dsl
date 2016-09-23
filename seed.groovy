@@ -3,7 +3,7 @@
 // job-dsl langauge
 String team= 'fhitchen'
 String gitUrl = "https://github.com/$team"
-String cronSchedule = 'H/2 * * * *'
+String cronSchedule = 'H/30 * * * *'
 services = ['hello', 'goodbye']
 branches = ['master', 'qa', 'staging', 'prod']
 
@@ -109,7 +109,7 @@ folder "Sprint"
      scm {
          perforceP4('p4_credentials') {
             workspace {
-                manual('ws_name', '//SPRINT/fhitchen-sprint-api-1625/api/... //ws_name/api/...')
+                manual('ws_name', '//SPRINT/fhitchen_1625-api/... //ws_name/...')
             }
             configure { node ->
                 node / workspace / spec / clobber('true')
@@ -117,22 +117,23 @@ folder "Sprint"
         }
       }
       definition {
-             cpsScm {
-     scm {
-         perforceP4('p4_credentials') {
-            workspace {
-                manual('ws_name', '//SPRINT/fhitchen-sprint-api-1625/api/... //ws_name/api/...')
-            }
-            configure { node ->
-                node / workspace / spec / clobber('true')
-            }
-        }
+          cpsScm {
+              scm {
+                  perforceP4('p4_credentials') {
+                      workspace {
+                          manual('ws_name', '//SPRINT/fhitchen_1625-api/... //ws_name/...')
+                              }
+                      configure { node ->
+                              node / workspace / spec / clobber('true')
+                              }
+                  }
+              }
+   
+              // how
+              scriptPath "api/Jenkinsfile"
+                  }
       }
-            }
-            // how
-            scriptPath "Jenkinsfile"
-        }
-      }
+}
 
 
 
