@@ -104,7 +104,9 @@ branches = ['1625', '1630', '1710']
 
 folder project
 
-pipelineJob ("$project/api") {
+folder "$project/Api"
+
+pipelineJob ("$project/Api/1625/api-ant") {
   description("do not hand edit, built by seed.groovy")
   // when...
   triggers {
@@ -143,10 +145,10 @@ pipelineJob ("$project/api") {
 
 branches.each {
   branch = it
-  currentFolder = "$project/$branch"
+  currentFolder = "$project/Api/$branch"
   folder currentFolder
 
-  pipelineJob ("$project/$branch/api-gradle") {
+  pipelineJob ("$project/Api/$branch/api-gradle") {
     description("do not hand edit, built by seed.groovy")
     // when...
     triggers {
