@@ -156,7 +156,7 @@ branches.each {
     scm {
       perforceP4('p4_credentials') {
         workspace {
-          manual('ws_name', '//SPRINT/fhitchen_$branch-api/... //ws_name/...')
+          manual('ws_name', "//SPRINT/fhitchen_$branch-api/... //ws_name/...")
         }
         configure { node ->
           node / workspace / spec / clobber('true')
@@ -168,7 +168,7 @@ branches.each {
         scm {
           perforceP4('p4_credentials') {
             workspace {
-              manual('ws_name', '//SPRINT/fhitchen_$branch-api/... //ws_name/...')
+              manual('ws_name', "//SPRINT/fhitchen_$branch-api/... //ws_name/...")
             }
             configure { node ->
               node / workspace / spec / clobber('true')
