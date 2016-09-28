@@ -97,79 +97,86 @@ job('Metro/AOT') {
     }
 }
 
-folder "Sprint"
 
-    pipelineJob ("Sprint/api") {
-      description("do not hand edit, built by seed.groovy")
-      // when...
-      triggers {
-          scm cronSchedule
+String project= 'Sprint'
+String gitUrl = "https://github.com/$team"
+String cronSchedule = 'H/30 * * * *'
+services = ['hello', 'goodbye']
+branches = ['1625', '1630', '1710']
+
+folder project
+
+pipelineJob ("$project/api") {
+  description("do not hand edit, built by seed.groovy")
+  // when...
+  triggers {
+    scm cronSchedule
+  }
+  // what..
+  scm {
+    perforceP4('p4_credentials') {
+      workspace {
+        manual('ws_name', '//SPRINT/fhitchen_1625-api/... //ws_name/...')
       }
-      // what..
-     scm {
-         perforceP4('p4_credentials') {
-            workspace {
-                manual('ws_name', '//SPRINT/fhitchen_1625-api/... //ws_name/...')
-            }
-            configure { node ->
-                node / workspace / spec / clobber('true')
-            }
+      configure { node ->
+        node / workspace / spec / clobber('true')
+      }
+    }
+  }
+  definition {
+    cpsScm {
+      scm {
+        perforceP4('p4_credentials') {
+          workspace {
+            manual('ws_name', '//SPRINT/fhitchen_1625-api/... //ws_name/...')
+          }
+          configure { node ->
+            node / workspace / spec / clobber('true')
+          }
         }
       }
-      definition {
-          cpsScm {
-              scm {
-                  perforceP4('p4_credentials') {
-                      workspace {
-                          manual('ws_name', '//SPRINT/fhitchen_1625-api/... //ws_name/...')
-                              }
-                      configure { node ->
-                              node / workspace / spec / clobber('true')
-                              }
-                  }
-              }
    
-              // how
-              scriptPath "api/Jenkinsfile"
-                  }
-      }
-}
-
-
-
-    pipelineJob ("Sprint/api-gradle") {
-      description("do not hand edit, built by seed.groovy")
-      // when...
-      triggers {
-          scm cronSchedule
-      }
-      // what..
-     scm {
-         perforceP4('p4_credentials') {
-            workspace {
-                manual('ws_name', '//SPRINT/fhitchen_1625-api/... //ws_name/...')
-            }
-            configure { node ->
-                node / workspace / spec / clobber('true')
-            }
-        }
-      }
-      definition {
-             cpsScm {
-     scm {
-         perforceP4('p4_credentials') {
-            workspace {
-                manual('ws_name', '//SPRINT/fhitchen_1625-api/... //ws_name/...')
-            }
-            configure { node ->
-                node / workspace / spec / clobber('true')
-	      }
-	  }
-      }	
-            // how
-            scriptPath "api/Jenkinsfile_gradle"
-	  }
+      // how
+      scriptPath "api/Jenkinsfile"
+    }
   }
 }
 
 
+branches.each {
+  branch = it
+  pipelineJob ("$project/$branch/api-gradle") {
+    description("do not hand edit, built by seed.groovy")
+    // when...
+    triggers {
+      scm cronSchedule
+    }
+    // what..
+    scm {
+      perforceP4('p4_credentials') {
+        workspace {
+          manual('ws_name', '//SPRINT/fhitchen_$branch-api/... //ws_name/...')
+        }
+        configure { node ->
+          node / workspace / spec / clobber('true')
+        }
+      }
+    }
+    definition {
+      cpsScm {
+        scm {
+          perforceP4('p4_credentials') {
+            workspace {
+              manual('ws_name', '//SPRINT/fhitchen_$branch-api/... //ws_name/...')
+            }
+            configure { node ->
+              node / workspace / spec / clobber('true')
+            }
+	  }
+        }	
+        // how
+        scriptPath "api/Jenkinsfile_gradle"
+      }
+    }
+  }
+}
