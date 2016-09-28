@@ -99,9 +99,7 @@ job('Metro/AOT') {
 
 
 String project= 'Sprint'
-String gitUrl = "https://github.com/$team"
-String cronSchedule = 'H/30 * * * *'
-services = ['hello', 'goodbye']
+String SprintCronSchedule = 'H/60 * * * *'
 branches = ['1625', '1630', '1710']
 
 folder project
@@ -110,7 +108,7 @@ pipelineJob ("$project/api") {
   description("do not hand edit, built by seed.groovy")
   // when...
   triggers {
-    scm cronSchedule
+    scm SprintCronSchedule
   }
   // what..
   scm {
@@ -149,7 +147,7 @@ branches.each {
     description("do not hand edit, built by seed.groovy")
     // when...
     triggers {
-      scm cronSchedule
+      scm SprintCronSchedule
     }
     // what..
     scm {
