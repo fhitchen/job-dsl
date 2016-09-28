@@ -144,6 +144,7 @@ pipelineJob ("$project/api") {
 branches.each {
   branch = it
   currentFolder = "$project/$branch"
+  folder currentFolder
 
   pipelineJob ("$project/$branch/api-gradle") {
     description("do not hand edit, built by seed.groovy")
