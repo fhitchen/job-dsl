@@ -101,6 +101,15 @@ job('Metro/AOT') {
 String project= 'Sprint'
 String SprintCronSchedule = 'H/60 * * * *'
 branches = ['1625', '1630', '1710']
+building_blocks = ['abp', 'api', 'apijobs', 'aprm', 'asmn',
+                   'bims' 'BOOSTUI',
+                   'crm',
+                   'lel',
+                   'omniChannel',
+                   'PowerBuilder',
+                   'tools_config',
+                   'vad',
+                   'wm']
 
 folder project
 
@@ -145,40 +154,46 @@ pipelineJob ("$project/Api/1625/api-ant") {
 
 branches.each {
   branch = it
-  currentFolder = "$project/Api/$branch"
-  folder currentFolder
 
-  pipelineJob ("$project/Api/$branch/api-gradle") {
-    description("do not hand edit, built by seed.groovy")
-    // when...
-    triggers {
-      scm SprintCronSchedule
-    }
-    // what..
-    scm {
-      perforceP4('p4_credentials') {
-        workspace {
-          manual('ws_name', "//SPRINT/fhitchen_$branch-api/... //ws_name/...")
-        }
-        configure { node ->
-          node / workspace / spec / clobber('true')
+  building_blocks.each {
+    bb = it
+    display_bb = bb.capitalize()
+    
+    currentFolder = "$project/$display_bb/$branch"
+    folder currentFolder
+
+    pipelineJob ("$project/$display_bb/$branch/$bb-gradle") {
+      description("do not hand edit, built by seed.groovy")
+      // when...
+      triggers {
+        scm SprintCronSchedule
+      }
+      // what..
+      scm {
+        perforceP4('p4_credentials') {
+          workspace {
+            manual('ws_name', "//SPRINT/fhitchen_$branch-$bb/... //ws_name/...")
+          }
+          configure { node ->
+            node / workspace / spec / clobber('true')
+          }
         }
       }
-    }
-    definition {
-      cpsScm {
-        scm {
-          perforceP4('p4_credentials') {
-            workspace {
-              manual('ws_name', "//SPRINT/fhitchen_$branch-api/... //ws_name/...")
+      definition {
+        cpsScm {
+          scm {
+            perforceP4('p4_credentials') {
+              workspace {
+                manual('ws_name', "//SPRINT/fhitchen_$branch-$bb/... //ws_name/...")
+              }
+              configure { node ->
+                node / workspace / spec / clobber('true')
+              }
             }
-            configure { node ->
-              node / workspace / spec / clobber('true')
-            }
-	  }
-        }	
-        // how
-        scriptPath "api/Jenkinsfile_gradle"
+          }	
+          // how
+          scriptPath "$bb/Jenkinsfile_gradle"
+        }
       }
     }
   }
