@@ -113,9 +113,9 @@ building_blocks = ['abp', 'api', 'apijobs', 'aprm', 'asmn',
 
 folder project
 
-folder "$project/Api"
+folder "$project/1625"
 
-pipelineJob ("$project/Api/1625/api-ant") {
+pipelineJob ("$project/1625/Api/api-ant") {
   description("do not hand edit, built by seed.groovy")
   // when...
   triggers {
@@ -159,10 +159,10 @@ branches.each {
     bb = it
     display_bb = bb.capitalize()
     
-    currentFolder = "$project/$display_bb/$branch"
+    currentFolder = "$project/$branch/$display_bb"
     folder currentFolder
 
-    pipelineJob ("$project/$display_bb/$branch/$bb-gradle") {
+    pipelineJob ("$project/$branch/$display_bb/$bb-gradle") {
       description("do not hand edit, built by seed.groovy")
       // when...
       triggers {
