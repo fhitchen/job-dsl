@@ -154,7 +154,9 @@ pipelineJob ("$project/1625/Api/api-ant") {
 
 branches.each {
   branch = it
-
+  currentFolder = "$project/$branch"
+  folder currentFolder
+  
   building_blocks.each {
     bb = it
     display_bb = bb.capitalize()
