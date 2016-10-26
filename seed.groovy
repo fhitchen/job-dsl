@@ -99,7 +99,7 @@ job('Metro/AOT') {
 
 
 String project= 'Sprint'
-String SprintCronSchedule = 'H/60 * * * *'
+String SprintCronSchedule = 'H H * * *'
 branches = ['1625', '1630', '1710']
 building_blocks = ['abp', 'api', 'apijobs', 'aprm', 'asmn',
                    'bims', 'BOOSTUI',
